@@ -49,7 +49,19 @@ public Toolbar mToolbar;
         tvHello.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
         tvHello.setTextSize(30);
         tvHello.setLayoutParams(tvHelloParams);
-        tvHello.setBackgroundColor(ContextCompat.getColor(this, R.color.colorLime));
+
+        // надпись Sign in
+        TextView tvSignIn = new TextView(this);
+        LinearLayout.LayoutParams tvSignInParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        tvSignInParams.topMargin = 25;
+        tvSignInParams.gravity = Gravity.START;
+        tvSignIn.setText(R.string.sign_in);
+        tvSignIn.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
+        tvSignIn.setTextSize(17);
+        tvSignIn.setLayoutParams(tvSignInParams);
+        // фон для понимания размеров слоя
+        tvSignIn.setBackgroundColor(ContextCompat.getColor(this, R.color.colorLime));
+
 
 
         //params.weight = 1.0f;
@@ -57,8 +69,10 @@ public Toolbar mToolbar;
 
 
 
-        // вставляем надпись Hello в контейнер Total
+        // вставляем надпись "Hello в контейнер Total
         llTotal.addView(tvHello);
+        // вставляем надпись "Sign in" в контейнер Total
+        llTotal.addView(tvSignIn);
         // вставляем контейнер Total в главный контейнер root
         root.addView(llTotal);
         // создаем главный контейнер root
