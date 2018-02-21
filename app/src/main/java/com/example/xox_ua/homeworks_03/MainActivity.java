@@ -1,5 +1,6 @@
 package com.example.xox_ua.homeworks_03;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -9,15 +10,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
 public Toolbar mToolbar;
+public Button btnGoogle;
+public Button btnFacebook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +86,7 @@ public Toolbar mToolbar;
         //llGoFa.setBackgroundColor(ContextCompat.getColor(this, R.color.colorLime));
 
         // кнопка Google
-        Button btnGoogle = new Button(this);
+        btnGoogle = new Button(this);
         btnGoogle.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT, 1));
         ViewGroup.MarginLayoutParams btnGoogleParams = (ViewGroup.MarginLayoutParams) btnGoogle.getLayoutParams();
@@ -95,9 +100,18 @@ public Toolbar mToolbar;
         btnGoogle.setTypeface(btnGoogle.getTypeface(), Typeface.BOLD);
         btnGoogle.setLayoutParams(btnGoogleParams);
         btnGoogle.setBackgroundColor(ContextCompat.getColor(this, R.color.colorGoogle));
+        // нажатие на кнопку Google - запуск активности с кастомным ProgressBar'ом
+        btnGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ProgressBarRoundActivity.class);
+                startActivityForResult(intent, 1);
+                Toast.makeText(getApplicationContext(), R.string.google, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // кнопка Facebook
-        Button btnFacebook = new Button(this);
+        btnFacebook = new Button(this);
         btnFacebook.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT, 1));
         ViewGroup.MarginLayoutParams btnFacebookParams = (ViewGroup.MarginLayoutParams) btnFacebook.getLayoutParams();
@@ -111,7 +125,15 @@ public Toolbar mToolbar;
         btnFacebook.setTypeface(btnFacebook.getTypeface(), Typeface.BOLD);
         btnFacebook.setLayoutParams(btnFacebookParams);
         btnFacebook.setBackgroundColor(ContextCompat.getColor(this, R.color.colorFacebook));
-
+        // нажатие на кнопку Facebook - запуск активности с кастомным горизонтальным ProgressBar'ом
+        btnFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ProgressBarHorizontalActivity.class);
+                startActivityForResult(intent, 1);
+                Toast.makeText(getApplicationContext(), R.string.facebook, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // контейнер "OR"
 
