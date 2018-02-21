@@ -136,7 +136,38 @@ public Button btnFacebook;
         });
 
         // контейнер "OR"
+        LinearLayout llOr = new LinearLayout(this);
+        llOr.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+        llOr.setOrientation(LinearLayout.HORIZONTAL);
+        ViewGroup.MarginLayoutParams llOrParams = (ViewGroup.MarginLayoutParams) llOr.getLayoutParams();
+        llOrParams.topMargin = 60;
+        // фон для понимания размеров слоя
+        //llOr.setBackgroundColor(ContextCompat.getColor(this, R.color.colorLime));
 
+        // line1
+        View vLine1 = new View(this);
+        LinearLayout.LayoutParams vLine1Params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                5, 1);
+        vLine1Params.gravity = Gravity.CENTER_VERTICAL;
+        vLine1Params.rightMargin = 15;
+        vLine1.setLayoutParams(vLine1Params);
+        vLine1.setBackgroundColor(ContextCompat.getColor(this, R.color.colorGrey));
+
+        // надпись "OR"
+        TextView tvOr = new TextView(this);
+        tvOr.setText(R.string.or);
+        tvOr.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
+        tvOr.setTextSize(18);
+
+        // line2
+        View vLine2 = new View(this);
+        LinearLayout.LayoutParams vLine2Params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                5, 1);
+        vLine2Params.gravity = Gravity.CENTER_VERTICAL;
+        vLine2Params.leftMargin = 15;
+        vLine2.setLayoutParams(vLine2Params);
+        vLine2.setBackgroundColor(ContextCompat.getColor(this, R.color.colorGrey));
 
 
 
@@ -145,12 +176,21 @@ public Button btnFacebook;
         llTotal.addView(tvHello);
         // вставляем надпись "Sign in" в контейнер Total
         llTotal.addView(tvSignIn);
-        // вставляем надпись контейнер с кнопками Google и Facebook в контейнер Total
+        // вставляем контейнер с кнопками Google и Facebook в контейнер Total
         llTotal.addView(llGoFa);
-        // вставляем кнопку Google в контейнер GoogleFacebook
-        llGoFa.addView(btnGoogle);
-        // вставляем кнопку Facebook в контейнер GoogleFacebook
-        llGoFa.addView(btnFacebook);
+            // вставляем кнопку Google в контейнер GoogleFacebook
+            llGoFa.addView(btnGoogle);
+            // вставляем кнопку Facebook в контейнер GoogleFacebook
+            llGoFa.addView(btnFacebook);
+        // вставляем контейнер с линиями и надписью "OR"
+        llTotal.addView(llOr);
+            // вставляем Line1
+            llOr.addView(vLine1);
+            // вставляем надпись "OR"
+            llOr.addView(tvOr);
+            // вставляем Line2
+            llOr.addView(vLine2);
+
 
         // вставляем контейнер Total в главный контейнер root
         root.addView(llTotal);
