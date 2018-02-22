@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -19,13 +18,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
-public Toolbar mToolbar;
 public Button btnGoogle;
 public Button btnFacebook;
 public Button btnPass;
@@ -55,8 +54,8 @@ public int passIndex;
                 LinearLayout.LayoutParams.MATCH_PARENT));
         llTotal.setOrientation(LinearLayout.VERTICAL);
         ViewGroup.MarginLayoutParams llParams = (ViewGroup.MarginLayoutParams) llTotal.getLayoutParams();
-        llParams.rightMargin = 50;
-        llParams.leftMargin = 50;
+        llParams.rightMargin = 30;
+        llParams.leftMargin = 30;
         llParams.topMargin = 0;
 
 
@@ -95,12 +94,10 @@ public int passIndex;
                 LinearLayout.LayoutParams.WRAP_CONTENT, 1));
         ViewGroup.MarginLayoutParams btnGoogleParams = (ViewGroup.MarginLayoutParams) btnGoogle.getLayoutParams();
         btnGoogleParams.rightMargin = 10;
-        Drawable imgGoogle = this.getResources().getDrawable(R.drawable.btn_google);
-        imgGoogle.setBounds( -20, 0, 74, 94 );                          //гарницы картинки: отступ, отступ, размер, размер
-        btnGoogle.setCompoundDrawables( imgGoogle, null, null, null );
+        btnGoogle.setCompoundDrawablesWithIntrinsicBounds( R.drawable.btn_google, 0, 0, 0);
         btnGoogle.setText(R.string.google);
         btnGoogle.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
-        btnGoogle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f);
+        btnGoogle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         btnGoogle.setTypeface(btnGoogle.getTypeface(), Typeface.BOLD);
         btnGoogle.setLayoutParams(btnGoogleParams);
         btnGoogle.setBackgroundColor(ContextCompat.getColor(this, R.color.colorGoogle));
@@ -120,12 +117,10 @@ public int passIndex;
                 LinearLayout.LayoutParams.WRAP_CONTENT, 1));
         ViewGroup.MarginLayoutParams btnFacebookParams = (ViewGroup.MarginLayoutParams) btnFacebook.getLayoutParams();
         btnFacebookParams.leftMargin = 10;
-        Drawable imgFacebook = this.getResources().getDrawable(R.drawable.btn_facebook);
-        imgFacebook.setBounds( -20, 0, 74, 94 );                          //гарницы картинки: отступ, отступ, размер, размер
-        btnFacebook.setCompoundDrawables( imgFacebook, null, null, null );
+        btnFacebook.setCompoundDrawablesWithIntrinsicBounds( R.drawable.btn_facebook, 0, 0, 0);
         btnFacebook.setText(R.string.facebook);
         btnFacebook.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
-        btnFacebook.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f);
+        btnFacebook.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         btnFacebook.setTypeface(btnFacebook.getTypeface(), Typeface.BOLD);
         btnFacebook.setLayoutParams(btnFacebookParams);
         btnFacebook.setBackgroundColor(ContextCompat.getColor(this, R.color.colorFacebook));
@@ -300,7 +295,7 @@ public int passIndex;
         tvSignUp.setText(R.string.sign_up);
         tvSignUp.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
         tvSignUp.setTextSize(14);
-        tvSignUp.setTypeface(btnGoogle.getTypeface(), Typeface.BOLD);
+        tvSignUp.setTypeface(tvSignUp.getTypeface(), Typeface.BOLD);
         tvSignUp.setLayoutParams(tvSignUpParams);
 
         // обработка нажатия на "Sign up"
@@ -321,7 +316,7 @@ public int passIndex;
         tvTerms.setText(R.string.terms);
         tvTerms.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
         tvTerms.setTextSize(14);
-        tvTerms.setTypeface(btnGoogle.getTypeface(), Typeface.BOLD);
+        tvTerms.setTypeface(tvTerms.getTypeface(), Typeface.BOLD);
         tvTerms.setLayoutParams(tvTermsParams);
 
         // обработка нажатия на "Terms"
