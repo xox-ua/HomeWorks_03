@@ -3,16 +3,22 @@ package com.example.xox_ua.homeworks_03;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
+import android.text.TextUtils;
+import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,6 +29,11 @@ public class MainActivity extends AppCompatActivity {
 public Toolbar mToolbar;
 public Button btnGoogle;
 public Button btnFacebook;
+public Button btnPass;
+public Button btnLogIn;
+public EditText etMail;
+public EditText etPass;
+public int passIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +58,7 @@ public Button btnFacebook;
         llParams.rightMargin = 50;
         llParams.leftMargin = 50;
         llParams.topMargin = 0;
-        // фон для понимания размеров слоя
-        //llTotal.setBackgroundColor(0xFF76eec6);
+
 
         // надпись Hello again
         TextView tvHello = new TextView(this);
@@ -60,8 +70,6 @@ public Button btnFacebook;
         tvHello.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
         tvHello.setTextSize(30);
         tvHello.setLayoutParams(tvHelloParams);
-        // фон для понимания размеров слоя
-        //tvHello.setBackgroundColor(0xFF8a2be2);
 
         // надпись Sign in
         TextView tvSignIn = new TextView(this);
@@ -73,8 +81,6 @@ public Button btnFacebook;
         tvSignIn.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
         tvSignIn.setTextSize(19);
         tvSignIn.setLayoutParams(tvSignInParams);
-        // фон для понимания размеров слоя
-        //tvSignIn.setBackgroundColor(0xFFeedfcc);
 
         // контейнер с кнопками Google и Facebook
         LinearLayout llGoFa = new LinearLayout(this);
@@ -82,8 +88,6 @@ public Button btnFacebook;
         llGoFa.setOrientation(LinearLayout.HORIZONTAL);
         ViewGroup.MarginLayoutParams llGoFaParams = (ViewGroup.MarginLayoutParams) llGoFa.getLayoutParams();
         llGoFaParams.topMargin = 20;
-        // фон для понимания размеров слоя
-        //llGoFa.setBackgroundColor(ContextCompat.getColor(this, R.color.colorLime));
 
         // кнопка Google
         btnGoogle = new Button(this);
@@ -142,8 +146,6 @@ public Button btnFacebook;
         llOr.setOrientation(LinearLayout.HORIZONTAL);
         ViewGroup.MarginLayoutParams llOrParams = (ViewGroup.MarginLayoutParams) llOr.getLayoutParams();
         llOrParams.topMargin = 60;
-        // фон для понимания размеров слоя
-        //llOr.setBackgroundColor(ContextCompat.getColor(this, R.color.colorLime));
 
         // line1
         View vLine1 = new View(this);
@@ -169,6 +171,96 @@ public Button btnFacebook;
         vLine2.setLayoutParams(vLine2Params);
         vLine2.setBackgroundColor(ContextCompat.getColor(this, R.color.colorGrey));
 
+        // EditText - eMail
+        etMail = new EditText(this);
+        LinearLayout.LayoutParams etMailParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        etMailParams.topMargin = 35;
+        etMail.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        etMail.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
+        etMail.setHintTextColor(ContextCompat.getColor(this, R.color.colorGrey));
+        etMail.getBackground().mutate().setColorFilter(getResources().getColor(R.color.colorGreen), PorterDuff.Mode.SRC_ATOP);
+        etMail.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f);
+        etMail.setTypeface(btnFacebook.getTypeface(), Typeface.BOLD);
+        etMail.setHint(R.string.hint_email);
+        etMail.setLayoutParams(etMailParams);
+
+        // контейнер для пароля
+        LinearLayout llPass = new LinearLayout(this);
+        llPass.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+        llPass.setOrientation(LinearLayout.HORIZONTAL);
+        ViewGroup.MarginLayoutParams llPassParams = (ViewGroup.MarginLayoutParams) llPass.getLayoutParams();
+        llPassParams.topMargin = 20;
+
+        // EditText - pass
+        etPass = new EditText(this);
+        LinearLayout.LayoutParams etPassParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT, 1);
+        etPass.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        etPass.setTransformationMethod(new PasswordTransformationMethod());
+        etPass.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
+        etPass.setHintTextColor(ContextCompat.getColor(this, R.color.colorGrey));
+        etPass.getBackground().mutate().setColorFilter(getResources().getColor(R.color.colorGreen), PorterDuff.Mode.SRC_ATOP);
+        etPass.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f);
+        etPass.setTypeface(btnFacebook.getTypeface(), Typeface.BOLD);
+        etPass.setHint(R.string.hint_pass);
+        etPass.setLayoutParams(etPassParams);
+
+        // Button - pass show/hide
+        btnPass = new Button(this);
+        LinearLayout.LayoutParams btnPassParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT, 1);
+        btnPass.setBackground(getResources().getDrawable(R.drawable.ic_show_password));
+        btnPass.setLayoutParams(btnPassParams);
+        // обработка кнопки - pass show/hide
+        btnPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (passIndex == 1) {
+                    // скрыть пароль
+                    etPass.setTransformationMethod(new PasswordTransformationMethod());
+                    passIndex = 0;
+                    Log.d("passIndex", String.valueOf(passIndex));
+                } else {
+                    /// показать пароль
+                    etPass.setTransformationMethod(null);
+                    passIndex = 1;
+                    Log.d("passIndex", String.valueOf(passIndex));
+                }
+            }
+        });
+
+        // Button - Log in
+        btnLogIn = new Button(this);
+        btnLogIn.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+        ViewGroup.MarginLayoutParams btnLogInParams = (ViewGroup.MarginLayoutParams) btnLogIn.getLayoutParams();
+        btnLogInParams.topMargin = 25;
+        btnLogIn.setText(R.string.log_in);
+        btnLogIn.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
+        btnLogIn.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f);
+        btnLogIn.setTypeface(btnLogIn.getTypeface(), Typeface.BOLD);
+        btnLogIn.setLayoutParams(btnLogInParams);
+        btnLogIn.setBackgroundColor(ContextCompat.getColor(this, R.color.colorGreen));
+        // обработка нажатия на "Log in", а также правильности ввода e-mail: ____@___.__
+        btnLogIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CharSequence temp_email = etMail.getText().toString();
+                String temp_pass = etPass.getText().toString();
+                if (!isValidEmail(temp_email)) {
+                    etMail.requestFocus();
+                    etMail.setError(getString(R.string.error_email));
+                } else if (temp_pass.matches("")) {
+                    etPass.setError(getString(R.string.error_pass));
+                } else {
+                    // осуществляем переход и выводим сообщение
+                    Toast.makeText(getApplicationContext(), R.string.toast1, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
 
 
 
@@ -190,6 +282,19 @@ public Button btnFacebook;
             llOr.addView(tvOr);
             // вставляем Line2
             llOr.addView(vLine2);
+        // вставляем EditText eMail
+        llTotal.addView(etMail);
+        // вставляем контейнер с паролем
+        llTotal.addView(llPass);
+            // вставляем etPass
+            llPass.addView(etPass);
+            // вставляем картинку pass show/hide
+            llPass.addView(btnPass);
+        // вставляем кнопку LogIn
+        llTotal.addView(btnLogIn);
+
+
+
 
 
         // вставляем контейнер Total в главный контейнер root
@@ -197,5 +302,10 @@ public Button btnFacebook;
 
         // создаем главный контейнер root
         setContentView(root);
+    }
+
+    // проверка правильности формата введённого email
+    public static boolean isValidEmail(CharSequence target) {
+        return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }
 }
