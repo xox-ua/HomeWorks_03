@@ -261,7 +261,24 @@ public int passIndex;
             }
         });
 
-
+        // текст-кнопка "Очистить поля ввода"
+        TextView tvClear = new TextView(this);
+        LinearLayout.LayoutParams tvClearParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        tvClearParams.topMargin = 30;
+        tvClearParams.gravity = Gravity.CENTER;
+        tvClear.setText(R.string.clear);
+        tvClear.setTextColor(ContextCompat.getColor(this, R.color.colorGrey));
+        tvClear.setTextSize(12);
+        tvClear.setLayoutParams(tvClearParams);
+        // обработка нажатия на текст-кнопку "Очистить поля ввода"
+        tvClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etMail.setText("");
+                etPass.setText("");
+            }
+        });
 
 
         // вставляем надпись "Hello" в контейнер Total
@@ -292,7 +309,8 @@ public int passIndex;
             llPass.addView(btnPass);
         // вставляем кнопку LogIn
         llTotal.addView(btnLogIn);
-
+        // вставляем TexvView Clear
+        llTotal.addView(tvClear);
 
 
 
