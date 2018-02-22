@@ -24,7 +24,7 @@ public class ProgressBarHorizontalActivity extends AppCompatActivity {
         // фиксируем экран (запрет поворота)
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        // добавление кнопки back и её функционала
+        // TOOLBAR добавление кнопки back и её функционала
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorFacebook)));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

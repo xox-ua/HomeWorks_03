@@ -2,9 +2,9 @@ package com.example.xox_ua.homeworks_03;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -44,10 +43,11 @@ public int passIndex;
         root.setOrientation(LinearLayout.VERTICAL);
         // фиксируем экран (запрет поворота)
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        root.setBackground(getResources().getDrawable(R.drawable.hw_02orig));
+        root.setBackground(getResources().getDrawable(R.drawable.hw_02));
 
-        // добавляем toolbar
-        // хз как его добавить !!!!!!!!!!!!!!!!!!!
+        // TOOLBAR добавление кнопки back и её функционала
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         // основной контейнер
         LinearLayout llTotal = new LinearLayout(this);
@@ -96,7 +96,7 @@ public int passIndex;
         ViewGroup.MarginLayoutParams btnGoogleParams = (ViewGroup.MarginLayoutParams) btnGoogle.getLayoutParams();
         btnGoogleParams.rightMargin = 10;
         Drawable imgGoogle = this.getResources().getDrawable(R.drawable.btn_google);
-        imgGoogle.setBounds( 0, 0, 94, 94 );                          //гарницы картинки: отступ, отступ, размер, размер
+        imgGoogle.setBounds( -20, 0, 74, 94 );                          //гарницы картинки: отступ, отступ, размер, размер
         btnGoogle.setCompoundDrawables( imgGoogle, null, null, null );
         btnGoogle.setText(R.string.google);
         btnGoogle.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
@@ -121,7 +121,7 @@ public int passIndex;
         ViewGroup.MarginLayoutParams btnFacebookParams = (ViewGroup.MarginLayoutParams) btnFacebook.getLayoutParams();
         btnFacebookParams.leftMargin = 10;
         Drawable imgFacebook = this.getResources().getDrawable(R.drawable.btn_facebook);
-        imgFacebook.setBounds( 0, 0, 94, 94 );                          //гарницы картинки: отступ, отступ, размер, размер
+        imgFacebook.setBounds( -20, 0, 74, 94 );                          //гарницы картинки: отступ, отступ, размер, размер
         btnFacebook.setCompoundDrawables( imgFacebook, null, null, null );
         btnFacebook.setText(R.string.facebook);
         btnFacebook.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
@@ -268,7 +268,7 @@ public int passIndex;
         tvClearParams.topMargin = 30;
         tvClearParams.gravity = Gravity.CENTER;
         tvClear.setText(R.string.clear);
-        tvClear.setTextColor(ContextCompat.getColor(this, R.color.colorGrey));
+        tvClear.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
         tvClear.setTextSize(12);
         tvClear.setLayoutParams(tvClearParams);
         // обработка нажатия на текст-кнопку "Очистить поля ввода"
@@ -277,6 +277,58 @@ public int passIndex;
             public void onClick(View v) {
                 etMail.setText("");
                 etPass.setText("");
+            }
+        });
+
+        // контейнер с кнопками SignUp и Terms
+        LinearLayout llBottom = new LinearLayout(this);
+        llBottom.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT));
+        llBottom.setOrientation(LinearLayout.HORIZONTAL);
+        ViewGroup.MarginLayoutParams llBottomParams = (ViewGroup.MarginLayoutParams) llBottom.getLayoutParams();
+        llBottomParams.topMargin = 20;
+        llBottom.setLayoutParams(llBottomParams);
+
+        // текст-кнопка SignUp
+        TextView tvSignUp = new TextView(this);
+        LinearLayout.LayoutParams tvSignUpParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT, 1);
+        tvSignUpParams.gravity = Gravity.BOTTOM;
+        tvSignUp.setGravity(Gravity.END);
+        tvSignUpParams.rightMargin = 50;
+        tvSignUpParams.bottomMargin = 20;
+        tvSignUp.setText(R.string.sign_up);
+        tvSignUp.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
+        tvSignUp.setTextSize(14);
+        tvSignUp.setTypeface(btnGoogle.getTypeface(), Typeface.BOLD);
+        tvSignUp.setLayoutParams(tvSignUpParams);
+
+        // обработка нажатия на "Sign up"
+        tvSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), R.string.toast2, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // текст-кнопка Terms
+        TextView tvTerms = new TextView(this);
+        LinearLayout.LayoutParams tvTermsParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT, 5);
+        tvTermsParams.gravity = Gravity.BOTTOM;
+        tvTermsParams.bottomMargin = 20;
+        tvTerms.setGravity(Gravity.END);
+        tvTerms.setText(R.string.terms);
+        tvTerms.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
+        tvTerms.setTextSize(14);
+        tvTerms.setTypeface(btnGoogle.getTypeface(), Typeface.BOLD);
+        tvTerms.setLayoutParams(tvTermsParams);
+
+        // обработка нажатия на "Terms"
+        tvTerms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), R.string.toast2, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -311,13 +363,15 @@ public int passIndex;
         llTotal.addView(btnLogIn);
         // вставляем TexvView Clear
         llTotal.addView(tvClear);
-
-
-
+        // вставляем контейнер с кнопками SignUp и Terms
+        llTotal.addView(llBottom);
+        // вставляем SignUp
+        llBottom.addView(tvSignUp);
+        // вставляем Terms
+        llBottom.addView(tvTerms);
 
         // вставляем контейнер Total в главный контейнер root
         root.addView(llTotal);
-
         // создаем главный контейнер root
         setContentView(root);
     }
@@ -325,5 +379,12 @@ public int passIndex;
     // проверка правильности формата введённого email
     public static boolean isValidEmail(CharSequence target) {
         return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+    }
+
+    // обработка нажатия на кнопку back toolbar'a
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
